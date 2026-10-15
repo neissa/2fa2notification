@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Bulle de message (réception du code) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36,40 L72,40 Q80,40 80,48 L80,64 Q80,72 72,72 L52,72 L40,82 L40,72 L36,72 Q28,72 28,64 L28,48 Q28,40 36,40 Z" />
+    <!-- Trois points : symbole du code à 6 chiffres -->
+    <path
+        android:fillColor="#1565C0"
+        android:pathData="M41,56 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z" />
+    <path
+        android:fillColor="#1565C0"
+        android:pathData="M51,56 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z" />
+    <path
+        android:fillColor="#1565C0"
+        android:pathData="M61,56 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z" />
+</vector>

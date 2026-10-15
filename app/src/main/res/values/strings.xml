@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">2FA Copy</string>
+    <string name="app_name">2fa2Notification</string>
     <string name="description">Détecte les codes 2FA reçus par SMS ou par mail Gmail et les affiche dans une notification permanente. Seuls les messages des 10 dernières minutes sont analysés.</string>
     <string name="gmail_status_connected">✅ API Gmail connectée (lecture seule)</string>
     <string name="gmail_status_disconnected">❌ API Gmail non connectée</string>
