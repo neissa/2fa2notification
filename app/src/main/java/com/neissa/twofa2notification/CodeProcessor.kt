@@ -6,8 +6,11 @@ import android.content.Context
 object CodeProcessor {
     const val MAX_AGE_MS = 10 * 60 * 1000L
 
-    /** [timeMs] = moment de réception du message, ou null si inconnu (le code est alors ignoré). */
-    fun process(context: Context, source: String, text: String?, timeMs: Long?) {
+    /**
+     * [timeMs] = moment de réception du message, ou null si inconnu (le code est alors ignoré).
+     * [sender] = expéditeur affiché dans la notification.
+     */
+    fun process(context: Context, source: String, text: String?, timeMs: Long?, sender: String? = null) {
         val code = CodeExtractor.extractWithDebug(context, text, source) ?: return
 
         if (timeMs == null) {
@@ -21,7 +24,7 @@ object CodeProcessor {
             return
         }
 
-        DebugLogger.log(context, source, "✅ Code $code envoyé à la notification (âge ${ageSec}s)")
-        CodeNotificationManager.updateNotification(context, code)
+        DebugLogger.log(context, source, "✅ Code $code envoyé à la notification (âge ${ageSec}s, de $sender)")
+        CodeNotificationManager.updateNotification(context, code, codeTime = timeMs, sender = sender)
     }
 }

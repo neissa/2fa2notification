@@ -1,11 +1,23 @@
 <resources>
     <string name="app_name">2FA Copy</string>
-    <string name="description">Détecte les codes 2FA reçus par SMS ou visibles dans Gmail et les affiche dans une notification permanente. Seuls les messages des 10 dernières minutes sont analysés.</string>
+    <string name="description">Détecte les codes 2FA reçus par SMS ou par mail Gmail et les affiche dans une notification permanente. Seuls les messages des 10 dernières minutes sont analysés.</string>
+    <string name="gmail_status_connected">✅ API Gmail connectée (lecture seule)</string>
+    <string name="gmail_status_disconnected">❌ API Gmail non connectée</string>
+    <string name="permissions_ok">✅ Autorisations accordées (SMS, notifications)</string>
+    <string name="permissions_missing">❌ Autorisations manquantes : %1$s</string>
+    <string name="perm_sms_receive">réception SMS</string>
+    <string name="perm_sms_read">lecture SMS</string>
+    <string name="perm_notifications">notifications</string>
+    <string name="battery_ok">✅ Optimisation batterie désactivée pour l\'app</string>
+    <string name="battery_active">❌ Optimisation batterie active : Android peut arrêter l\'app</string>
+    <string name="btn_battery">Désactiver l\'optimisation batterie</string>
     <string name="btn_grant_permissions">1. Autoriser SMS et notifications</string>
-    <string name="btn_enable_accessibility">2. Activer la lecture Gmail (Accessibilité)</string>
     <string name="btn_scan_sms">3. Analyser les SMS des 10 dernières minutes</string>
-    <string name="action_check_mail">Vérifier mails</string>
-    <string name="checking_mail">Vérification des mails en cours…</string>
+    <string name="action_check_mail">Vérifier</string>
+    <string name="checking_mail">Vérification en cours (SMS et mails)…</string>
+    <string name="checking_attempt">Vérification en cours (%1$d/%2$d)…</string>
+    <string name="check_found">Code 2FA trouvé</string>
+    <string name="check_not_found">Aucun code 2FA trouvé après %1$d vérifications</string>
     <string name="btn_sign_in_gmail">Se connecter à Gmail (API)</string>
     <string name="btn_check_gmail">Vérifier les mails Gmail maintenant</string>
     <string name="gmail_signed_in">Gmail autorisé (lecture seule)</string>
@@ -13,12 +25,12 @@
     <string name="btn_clear_logs">Effacer le journal</string>
     <string name="debug_title">Journal de débogage</string>
     <string name="scan_done">%1$d SMS analysé(s)</string>
-    <string name="accessibility_service_label">Lecture Gmail 2FA</string>
     <string name="copy">Copier</string>
     <string name="copy_code">Copier %1$s</string>
     <string name="code_detected">Code 2FA : %1$s</string>
     <string name="tap_to_copy">Appuyez pour copier %1$s dans le presse-papiers</string>
     <string name="copied">Code %1$s copié</string>
     <string name="channel_name">Codes 2FA</string>
+    <string name="notif_info">De : %1$s · reçu le %2$s</string>
     <string name="waiting_for_code">En attente d\'un code 2FA…</string>
 </resources>

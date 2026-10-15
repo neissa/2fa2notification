@@ -93,7 +93,8 @@ object GmailApiClient {
             return
         }
 
-        val query = URLEncoder.encode("newer_than:10m", "UTF-8")
+        // Exclut explicitement la corbeille et les spams
+        val query = URLEncoder.encode("newer_than:10m -in:trash -in:spam", "UTF-8")
         val list = getJson(context, "$MESSAGES_URL?q=$query&maxResults=10", token) ?: return
         val ids = list.optJSONArray("messages")
         if (ids == null) {
@@ -102,17 +103,17 @@ object GmailApiClient {
         }
         DebugLogger.log(context, "Gmail API", "${ids.length()} mail(s) reçu(s) dans les 10 dernières minutes")
 
-        val mails = mutableListOf<Pair<Long, String>>()
+        val mails = mutableListOf<Triple<Long, String, String>>()
         for (i in 0 until ids.length()) {
             val id = ids.getJSONObject(i).getString("id")
             val msg = getJson(context, "$MESSAGES_URL/$id?format=full", token) ?: continue
             val received = msg.optString("internalDate").toLongOrNull() ?: continue
-            mails += received to buildText(msg)
+            mails += Triple(received, senderOf(msg), buildText(msg))
         }
 
         // Du plus ancien au plus récent : le plus récent code gagne
-        mails.sortedBy { it.first }.forEach { (time, text) ->
-            CodeProcessor.process(context, "Gmail API", text, time)
+        mails.sortedBy { it.first }.forEach { (time, sender, text) ->
+            CodeProcessor.process(context, "Gmail API", text, time, sender)
         }
     }
 
@@ -144,6 +145,20 @@ object GmailApiClient {
         } finally {
             conn.disconnect()
         }
+    }
+
+    /** Nom de l'expéditeur (ou adresse si pas de nom) d'après l'en-tête From. */
+    private fun senderOf(msg: JSONObject): String {
+        val headers = msg.optJSONObject("payload")?.optJSONArray("headers") ?: return "inconnu"
+        for (i in 0 until headers.length()) {
+            val header = headers.getJSONObject(i)
+            if (header.optString("name").equals("From", ignoreCase = true)) {
+                val from = header.optString("value")
+                val name = from.substringBefore('<').trim().trim('"')
+                return name.ifEmpty { from.substringAfter('<', from).trim('>', ' ') }.ifEmpty { "inconnu" }
+            }
+        }
+        return "inconnu"
     }
 
     /** Sujet + extrait + parties texte brut du mail. */

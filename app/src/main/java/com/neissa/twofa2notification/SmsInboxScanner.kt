@@ -38,7 +38,7 @@ object SmsInboxScanner {
         DebugLogger.log(context, "SMS", "${rows.size} SMS trouvé(s) dans les 10 dernières minutes")
         // Traités du plus ancien au plus récent : le plus récent code gagne
         rows.forEach { (sender, body, time) ->
-            CodeProcessor.process(context, "SMS inbox ($sender)", body, time)
+            CodeProcessor.process(context, "SMS inbox ($sender)", body, time, sender)
         }
         return rows.size
     }
